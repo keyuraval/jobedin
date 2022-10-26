@@ -1,0 +1,21 @@
+.sb {
+    padding: 12px 12px 12px 12px;
+    background-color: white;
+    border: 1px solid black;
+    margin-top: 20px;
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    margin-top: -30px;
+}
+
+.si {
+    width: 110%;
+}
+
+.sbt {
+    height: 50px;
+    width: 100%;
+    background-color: violet;
+    padding: 10px 10px 10px 10px;
+}
