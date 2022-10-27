@@ -1,0 +1,24 @@
+/* .si {
+    margin-top: -5px;
+} */
+
+.skillchip {
+    background-color: #fff;
+    display: flex;
+    flex-direction: row;
+}
+
+.skill {
+    margin: 5px 5px 5px 5px;
+    padding: 10px 10px 10px 10px;
+    border: 1px solid black;
+    color: black;
+    border-radius: 10px;
+    justify-content: space-evenly;
+}
+
+.skill:hover {
+    background-color: black;
+    color: white;
+    transition: smooth;
+}
