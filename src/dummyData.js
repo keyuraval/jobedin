@@ -32,6 +32,17 @@ const dummyData = [
         skills: ["flutter"],
         link: "https://facebook.com/careers",
     },
+    {
+        id: 4,
+        postedOn: new Date(),
+        title: "Mobile dev",
+        type: "Contract",
+        location: "Remote",
+        companyName: "Facebook",
+        companyUrl: "https://facebook.com",
+        skills: ["flutter"],
+        link: "https://facebook.com/careers",
+    },
 ];
 
 export default dummyData
