@@ -6,6 +6,7 @@ import { differenceInMinutes } from 'date-fns'
 // const skills = ["JavaScript", "ReactJS", "NodeJS"];
 
 const JobCard = (props) => {
+
     return (
         <Box className="jb">
             <Box>
