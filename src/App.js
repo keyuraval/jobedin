@@ -1,14 +1,32 @@
+import './App.css';
 import { ThemeProvider } from '@emotion/react';
 import { Grid } from '@mui/material';
-import './App.css';
 import Index from './components/Header/Index';
 import JobCard from './components/Job/JobCard';
 import NewJobModal from './components/Job/NewJobModal';
 import SearchBar from './components/SearchBar/SearchBar';
-import jobData from './dummyData'
 import theme from './theme/theme';
+import { useEffect, useState } from 'react';
+import { collection, getDocs } from 'firebase/firestore';
+import db from './firebase/Config';
 
 function App() {
+
+  const [users, setUsers] = useState([]);
+  const userCollectionRef = collection(db, "jobs");
+
+
+  useEffect(() => {
+    const getUsers = async () => {
+      const data = await getDocs(userCollectionRef);
+      setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
+    };
+    getUsers();
+  }, []);
+
+
+
+
   return (
     <ThemeProvider theme={theme}>
       <Index />
@@ -16,10 +34,9 @@ function App() {
       <Grid container justifyContent="center">
         <Grid item xs={10}>
           <SearchBar />
-          {jobData.map(job => <JobCard key={job.id}{...job} />)}
+          {users.map(job => <JobCard key={job.id}{...job} />)}
         </Grid>
       </Grid>
-
     </ThemeProvider>
   );
 }
