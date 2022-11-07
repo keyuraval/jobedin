@@ -19,7 +19,7 @@ function App() {
   useEffect(() => {
     const getUsers = async () => {
       const data = await getDocs(userCollectionRef);
-      setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
+      setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id, postedOn: doc.data().postedOn.toDate() })))
     };
     getUsers();
   }, []);
