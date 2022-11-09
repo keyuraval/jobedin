@@ -7,13 +7,14 @@ import NewJobModal from './components/Job/NewJobModal';
 import SearchBar from './components/SearchBar/SearchBar';
 import theme from './theme/theme';
 import { useEffect, useState } from 'react';
-import { collection, getDocs } from 'firebase/firestore';
+import { addDoc, collection, getDocs, serverTimestamp } from 'firebase/firestore';
 import db from './firebase/Config';
 
 function App() {
 
   const [users, setUsers] = useState([]);
   const userCollectionRef = collection(db, "jobs");
+  const [newJobModal, setNewJobModal] = useState(false)
 
 
   useEffect(() => {
@@ -25,12 +26,17 @@ function App() {
   }, []);
 
 
+  const postJob = async jobDetails => {
+    await addDoc(collection(db, 'jobs'), {
+      ...jobDetails,
+      postedOn: serverTimestamp()
+    });
 
-
+  }
   return (
     <ThemeProvider theme={theme}>
-      <Index />
-      <NewJobModal />
+      <Index openNewjobModal={() => setNewJobModal(true)} />
+      <NewJobModal newJobModal={newJobModal} postJob={postJob} />
       <Grid container justifyContent="center">
         <Grid item xs={10}>
           <SearchBar />
