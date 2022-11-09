@@ -1,11 +1,12 @@
-import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, FilledInput, Grid, IconButton, MenuItem, Select, Typography } from '@mui/material'
+import { Box, Button, CircularProgress, Dialog, DialogActions, DialogContent, DialogTitle, FilledInput, Grid, IconButton, MenuItem, Select, Typography } from '@mui/material'
 import React from 'react'
 import './NewJobModal.css'
 import CloseIcon from '@mui/icons-material/Close';
 import { useState } from 'react';
 
-const NewJobModal = () => {
+const NewJobModal = (props) => {
 
+    const [loading, setLoading] = useState(false)
     const [jobDetails, setjobDetails] = useState({
         title: "",
         type: "Full time",
@@ -30,9 +31,16 @@ const NewJobModal = () => {
         ...oldState, skills: oldState.skills.concat(skill)
     }));
 
+    const handleSubmit = async () => {
+        setLoading(true);
+        await props.postJob(jobDetails);
+        setLoading(false);
+
+    }
+
 
     return (
-        <Dialog open={true} fullWidth>
+        <Dialog open={props.NewJobModal} fullWidth>
             <DialogTitle>
                 <Box display="flex" justifyContent="space-between" alignItems="center">
                     Post Job
@@ -80,7 +88,7 @@ const NewJobModal = () => {
             <DialogActions>
                 <Box width="100%" display="flex" justifyContent="space-between">
                     <Typography variant="caption">*Required Fields</Typography>
-                    <Button variant="contained" disableElevation color="primary">Post Job</Button>
+                    <Button onClick={handleSubmit} variant="contained" disableElevation color="primary" disabled={loading}>{loading ? (<CircularProgress color="secondary" />) : ("Post Job")}</Button>
                 </Box>
             </DialogActions>
         </Dialog>
