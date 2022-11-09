@@ -1,7 +1,7 @@
 import { Box, Button, Grid, Typography } from '@mui/material'
 import React from 'react'
 
-const Index = () => {
+const Index = (props) => {
     return (
         <Box py={10} bgcolor="secondary.main" color="white">
             <Grid container justify="center" justifyContent="center">
@@ -10,7 +10,7 @@ const Index = () => {
                         <Typography variant="h4">
                             Open Job Listing
                         </Typography>
-                        <Button variant="contained" color="primary" disableElevation>Post a Job</Button>
+                        <Button onClick={props.openNewJobModal} variant="contained" color="primary" disableElevation>Post a Job</Button>
                     </Box>
                 </Grid>
             </Grid>
