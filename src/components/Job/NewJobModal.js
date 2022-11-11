@@ -4,25 +4,27 @@ import './NewJobModal.css'
 import CloseIcon from '@mui/icons-material/Close';
 import { useState } from 'react';
 
+const initState = {
+    title: "",
+    type: "Full time",
+    comapanyName: "",
+    companyUrl: "",
+    location: "Remote",
+    link: "",
+    description: "",
+    skills: [],
+
+}
+
 const NewJobModal = (props) => {
 
     const [loading, setLoading] = useState(false)
-    const [jobDetails, setjobDetails] = useState({
-        title: "",
-        type: "Full time",
-        comapanyName: "",
-        companyUrl: "",
-        location: "Remote",
-        link: "",
-        description: "",
-        skills: [],
-    });
+    const [jobDetails, setjobDetails] = useState(initState);
 
     const handleChange = e => {
         // e.persist();
         setjobDetails(oldState => ({ ...oldState, [e.target.name]: e.target.value }));
     };
-    console.log(jobDetails);
     const skills = ["JavaScript", "NodeJS", "HTML", "CSS", "MongoDB", "ExpressJs"];
 
     const addRemoveSkill = (skill) => jobDetails.skills.find(s => skill === s) ? setjobDetails((oldState) => ({
@@ -35,16 +37,21 @@ const NewJobModal = (props) => {
         setLoading(true);
         await props.postJob(jobDetails);
         setLoading(false);
-
     }
 
+    // Reset the value
+    // const closeModal = () => {
+    //     setjobDetails(initState);
+    //     setLoading(false);
+    //     props.closeModal();
+    // }
 
     return (
-        <Dialog open={props.NewJobModal} fullWidth>
+        <Dialog open={props.newJobModal} fullWidth>
             <DialogTitle>
                 <Box display="flex" justifyContent="space-between" alignItems="center">
                     Post Job
-                    <IconButton><CloseIcon /></IconButton>
+                    <IconButton onClick={props.closeJobModal}><CloseIcon /></IconButton>
                 </Box>
             </DialogTitle>
             <DialogContent>
